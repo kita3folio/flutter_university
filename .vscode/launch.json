@@ -8,7 +8,6 @@
       "program": "lib/main.dart",
       "args": [
         "--debug",
-        "--flavor",
         "development",
       ]
     }
