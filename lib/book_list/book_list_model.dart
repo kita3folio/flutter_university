@@ -3,22 +3,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_university/domain/book.dart';
 
 class BookListModel extends ChangeNotifier {
-  final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('books').snapshots();
+  final _userCollection = FirebaseFirestore.instance.collection('books');
 
   List<Book>? books;
 
-  void fetchBookList() {
-    _usersStream.listen((snapshot) {
-      final List<Book> books = snapshot.docs.map((DocumentSnapshot document) {
-        Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-        final String title = data['title'];
-        final String author = data['author'];
-        return Book(title, author);
-      }).toList();
+  void fetchBookList() async {
+    final QuerySnapshot snapshot = await _userCollection.get();
 
-      this.books = books;
-      notifyListeners();
-    });
+    final List<Book> books = snapshot.docs.map((DocumentSnapshot document) {
+      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+      final String title = data['title'];
+      final String author = data['author'];
+      return Book(title, author);
+    }).toList();
+
+    this.books = books;
+    notifyListeners();
   }
 }
