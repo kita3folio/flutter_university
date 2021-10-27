@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_university/add_book/add_book_page.dart';
 import 'package:flutter_university/book_list/book_list_model.dart';
 import 'package:flutter_university/domain/book.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +35,14 @@ class BookListPage extends StatelessWidget {
           }),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: null,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddBookPage(),
+              ),
+            );
+          },
           tooltip: 'Increment',
           child: const Icon(Icons.add),
         ),
