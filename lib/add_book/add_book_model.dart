@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_university/domain/book.dart';
 
 class AddBookModel extends ChangeNotifier {
-  void addBook() async {}
+  String? title;
+  String? author;
+  Future addBook() async {
+    if (title == null || title!.isEmpty) {
+      throw '本のタイトルが入力されていません';
+    }
+    if (author == null || author!.isEmpty) {
+      throw '本の著者が入力されていません';
+    }
+
+    // firestoreに追加
+    await FirebaseFirestore.instance.collection('books').add({
+      'title': title,
+      'author': author,
+    });
+  }
 }
