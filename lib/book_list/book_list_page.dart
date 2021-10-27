@@ -38,13 +38,22 @@ class BookListPage extends StatelessWidget {
             Consumer<BookListModel>(builder: (contex, model, child) {
           return FloatingActionButton(
             onPressed: () async {
-              await Navigator.push(
+              final bool? added = await Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => AddBookPage(),
                   fullscreenDialog: true,
                 ),
               );
+
+              if (added != null && added) {
+                final snackBar = SnackBar(
+                  backgroundColor: Colors.green,
+                  content: Text('本を追加しました'),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+
               model.fetchBookList();
             },
             tooltip: 'Increment',

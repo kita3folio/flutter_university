@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_university/add_book/add_book_model.dart';
 import 'package:flutter_university/domain/book.dart';
@@ -44,11 +45,7 @@ class AddBookPage extends StatelessWidget {
                       onPressed: () async {
                         try {
                           await model.addBook();
-                          final snackBar = SnackBar(
-                            backgroundColor: Colors.green,
-                            content: Text('本を追加しました'),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          Navigator.of(context).pop(true);
                         } catch (e) {
                           final snackBar = SnackBar(
                             backgroundColor: Colors.red,
