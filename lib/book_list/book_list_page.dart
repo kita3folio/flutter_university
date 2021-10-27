@@ -34,19 +34,23 @@ class BookListPage extends StatelessWidget {
             );
           }),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AddBookPage(),
-                fullscreenDialog: true,
-              ),
-            );
-          },
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
-        ),
+        floatingActionButton:
+            Consumer<BookListModel>(builder: (contex, model, child) {
+          return FloatingActionButton(
+            onPressed: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddBookPage(),
+                  fullscreenDialog: true,
+                ),
+              );
+              model.fetchBookList();
+            },
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          );
+        }),
       ),
     );
   }
