@@ -21,4 +21,8 @@ class BookListModel extends ChangeNotifier {
     this.books = books;
     notifyListeners();
   }
+
+  Future delete(Book book) {
+    return _userCollection.doc(book.id).delete();
+  }
 }
