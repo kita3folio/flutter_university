@@ -3,6 +3,7 @@ import 'package:flutter_university/add_book/add_book_page.dart';
 import 'package:flutter_university/book_list/book_list_model.dart';
 import 'package:flutter_university/domain/book.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class BookListPage extends StatelessWidget {
   @override
@@ -23,9 +24,27 @@ class BookListPage extends StatelessWidget {
 
             final List<Widget> widgets = books
                 .map(
-                  (book) => ListTile(
-                    title: Text(book.title),
-                    subtitle: Text(book.author),
+                  (book) => Slidable(
+                    actionPane: SlidableDrawerActionPane(),
+                    actionExtentRatio: 0.25,
+                    child: ListTile(
+                      title: Text(book.title),
+                      subtitle: Text(book.author),
+                    ),
+                    secondaryActions: <Widget>[
+                      IconSlideAction(
+                        caption: '編集',
+                        color: Colors.black45,
+                        icon: Icons.edit,
+                        onTap: () => null,
+                      ),
+                      IconSlideAction(
+                        caption: '削除',
+                        color: Colors.red,
+                        icon: Icons.delete,
+                        onTap: () => null,
+                      ),
+                    ],
                   ),
                 )
                 .toList();
