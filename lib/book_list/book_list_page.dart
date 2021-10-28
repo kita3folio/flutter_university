@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_university/add_book/add_book_page.dart';
+import 'package:flutter_university/edit_book/edit_book_page.dart';
 import 'package:flutter_university/book_list/book_list_model.dart';
 import 'package:flutter_university/domain/book.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,25 @@ class BookListPage extends StatelessWidget {
                         caption: '編集',
                         color: Colors.black45,
                         icon: Icons.edit,
-                        onTap: () => null,
+                        onTap: () async {
+                          final bool? added = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EditBookPage(),
+                            ),
+                          );
+
+                          if (added != null && added) {
+                            final snackBar = SnackBar(
+                              backgroundColor: Colors.green,
+                              content: Text('本を編集しました'),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+
+                          model.fetchBookList();
+                        },
                       ),
                       IconSlideAction(
                         caption: '削除',
