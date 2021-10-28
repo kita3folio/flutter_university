@@ -61,7 +61,9 @@ class BookListPage extends StatelessWidget {
                         caption: '削除',
                         color: Colors.red,
                         icon: Icons.delete,
-                        onTap: () => null,
+                        onTap: () async {
+                          await showConfirmDialog(context, book);
+                        },
                       ),
                     ],
                   ),
@@ -99,6 +101,29 @@ class BookListPage extends StatelessWidget {
           );
         }),
       ),
+    );
+  }
+
+  Future showConfirmDialog(BuildContext context, Book book) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("This is the title"),
+          content: Text("This is the content"),
+          actions: [
+            TextButton(
+              child: Text("Cancel"),
+              onPressed: () => Navigator.pop(context),
+            ),
+            TextButton(
+              child: Text("OK"),
+              onPressed: () => print('OK'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
