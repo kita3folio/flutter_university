@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_university/add_book/add_book_page.dart';
+import 'package:flutter_university/edit_book/edit_book_page.dart';
 import 'package:flutter_university/book_list/book_list_model.dart';
 import 'package:flutter_university/domain/book.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class BookListPage extends StatelessWidget {
   @override
@@ -23,9 +25,45 @@ class BookListPage extends StatelessWidget {
 
             final List<Widget> widgets = books
                 .map(
-                  (book) => ListTile(
-                    title: Text(book.title),
-                    subtitle: Text(book.author),
+                  (book) => Slidable(
+                    actionPane: SlidableDrawerActionPane(),
+                    actionExtentRatio: 0.25,
+                    child: ListTile(
+                      title: Text(book.title),
+                      subtitle: Text(book.author),
+                    ),
+                    secondaryActions: <Widget>[
+                      IconSlideAction(
+                        caption: '編集',
+                        color: Colors.black45,
+                        icon: Icons.edit,
+                        onTap: () async {
+                          final String? title = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EditBookPage(book),
+                            ),
+                          );
+
+                          if (title != null) {
+                            final snackBar = SnackBar(
+                              backgroundColor: Colors.green,
+                              content: Text('$titleを編集しました'),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+
+                          model.fetchBookList();
+                        },
+                      ),
+                      IconSlideAction(
+                        caption: '削除',
+                        color: Colors.red,
+                        icon: Icons.delete,
+                        onTap: () => null,
+                      ),
+                    ],
                   ),
                 )
                 .toList();
