@@ -51,7 +51,7 @@ class EditBookPage extends StatelessWidget {
                         ? () async {
                             try {
                               await model.updateBook();
-                              Navigator.of(context).pop(true);
+                              Navigator.of(context).pop(model.title);
                             } catch (e) {
                               final snackBar = SnackBar(
                                 backgroundColor: Colors.red,

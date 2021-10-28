@@ -38,17 +38,17 @@ class BookListPage extends StatelessWidget {
                         color: Colors.black45,
                         icon: Icons.edit,
                         onTap: () async {
-                          final bool? added = await Navigator.push(
+                          final String? title = await Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => EditBookPage(book),
                             ),
                           );
 
-                          if (added != null && added) {
+                          if (title != null) {
                             final snackBar = SnackBar(
                               backgroundColor: Colors.green,
-                              content: Text('本を編集しました'),
+                              content: Text('$titleを編集しました'),
                             );
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);
