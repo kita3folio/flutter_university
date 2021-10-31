@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class RegisterModel extends ChangeNotifier {
   final emailController = TextEditingController();
@@ -22,10 +23,22 @@ class RegisterModel extends ChangeNotifier {
     email = emailController.text;
     password = passwordController.text;
 
-    // firestoreに追加
-    // await FirebaseFirestore.instance.collection('books').doc(book.id).update({
-    //   'title': title,
-    //   'author': author,
-    // });
+    if (email != null && password != null) {
+      final userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email!, password: password!);
+
+      final user = userCredential.user;
+
+      if (user != null) {
+        final uid = user.uid;
+
+        final doc = FirebaseFirestore.instance.collection('users').doc(uid);
+
+        await doc.set({
+          'uid': uid,
+          'email': email,
+        });
+      }
+    }
   }
 }
