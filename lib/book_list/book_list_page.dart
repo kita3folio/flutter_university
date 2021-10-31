@@ -3,6 +3,7 @@ import 'package:flutter_university/add_book/add_book_page.dart';
 import 'package:flutter_university/edit_book/edit_book_page.dart';
 import 'package:flutter_university/book_list/book_list_model.dart';
 import 'package:flutter_university/domain/book.dart';
+import 'package:flutter_university/login/login_page.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -16,8 +17,13 @@ class BookListPage extends StatelessWidget {
           title: Text('本一覧'),
           actions: [
             IconButton(
-              onPressed: () {
-                // 処理を書く.
+              onPressed: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(),
+                  ),
+                );
               },
               icon: Icon(Icons.person),
             ),
