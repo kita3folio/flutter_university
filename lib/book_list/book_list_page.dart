@@ -14,6 +14,14 @@ class BookListPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('本一覧'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                // 処理を書く.
+              },
+              icon: Icon(Icons.person),
+            ),
+          ],
         ),
         body: Center(
           child: Consumer<BookListModel>(builder: (contex, model, child) {
@@ -29,7 +37,9 @@ class BookListPage extends StatelessWidget {
                     actionPane: SlidableDrawerActionPane(),
                     actionExtentRatio: 0.25,
                     child: ListTile(
-                      leading: book.imgURL != null ? Image.network(book.imgURL!) : null,
+                      leading: book.imgURL != null
+                          ? Image.network(book.imgURL!)
+                          : null,
                       title: Text(book.title),
                       subtitle: Text(book.author),
                     ),
