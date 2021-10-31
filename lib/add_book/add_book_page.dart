@@ -72,7 +72,7 @@ class AddBookPage extends StatelessWidget {
                               model.endLoading();
                             }
                           },
-                          child: Text('追加する'))
+                          child: Text('追加'))
                     ],
                   ),
                 ),
